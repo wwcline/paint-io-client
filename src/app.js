@@ -87,9 +87,15 @@ setTimeout(() => {
   tryLogin();
 });
 
+const createUser = username => new Message({
+  text: username,
+  mountPoint: userPanel
+});
+
 // TODO 2.3: Listen for an update user list event (eg "UPDATE_USER_LIST") from server, containing the "users" object with all usernames then update the dom to display this.
 socket.on('UPDATE_USER_LIST', (users) => {
-  userPanel.innerHTML = users;
+  userPanel.clear();
+  Object.keys(users).map(createUser);
 });
 
 // TODO 3.1 Update the user list display from step 2.3 so that it displays buttons, when clicked, draw events will only be dispatched to that user. You will also need to modify the onMove handler from 1.3
